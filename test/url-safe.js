@@ -14,5 +14,9 @@ test('decode url-safe style base64 strings', function (t) {
     t.equal(actual[i], expected[i])
   }
 
+  b64.setUrlSafe(true)
+  var uEncoded = b64.fromByteArray(expected)
+  t.equal(uEncoded, '__--_--_--__')
+
   t.end()
 })

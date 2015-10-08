@@ -13,18 +13,21 @@ var checks = [
 ]
 
 test('convert to base64 and back', function (t) {
-  t.plan(checks.length)
+  t.plan(checks.length * 2)
 
-  for (var i = 0; i < checks.length; i++) {
-    var check = checks[i]
-    var b64Str, arr, str
+  for (var url in [true, false]) {
+    b64.setUrlSafe(url)
+    for (var i = 0; i < checks.length; i++) {
+      var check = checks[i]
+      var b64Str, arr, str
 
-    b64Str = b64.fromByteArray(map(check, function (char) { return char.charCodeAt(0) }))
+      b64Str = b64.fromByteArray(map(check, function (char) { return char.charCodeAt(0) }))
 
-    arr = b64.toByteArray(b64Str)
-    str = map(arr, function (byte) { return String.fromCharCode(byte) }).join('')
+      arr = b64.toByteArray(b64Str)
+      str = map(arr, function (byte) { return String.fromCharCode(byte) }).join('')
 
-    t.equal(check, str, 'Checked ' + check)
+      t.equal(check, str, 'Checked ' + check)
+    }
   }
 })
 
